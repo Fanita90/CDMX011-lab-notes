@@ -1,0 +1,20 @@
+
+.h1-notes{
+    text-align: center;
+    font-size: 6vw;
+}
+.btn-note{
+    background: #F24C3D;
+    color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 30px;
+    font-size: 3.5vw;
+    width: 25vw;
+    height: 5vh;
+    display:block;
+    margin-bottom: 5vh;
+    margin-top: 4vh;
+    margin-left: auto;
+    margin-right: auto;
+}
