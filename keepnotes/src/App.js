@@ -1,11 +1,6 @@
 import React from 'react';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import Register from './components/Register';
 import Notes from './components/Notes';
 import { createAccount, loginAccount } from './firebaseconfig'
@@ -13,16 +8,13 @@ import Home from './components/Home';
 import Login from './components/Login';
 
 function App() {
-  
+
   const handleRegister = (email, password) => {
     createAccount(email, password);
   }
   const handleLogin = (email, password) => {
     loginAccount(email, password);
   }
-
-  
-
 
   return (
     <Router>
@@ -35,7 +27,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-    
+
   );
 }
 

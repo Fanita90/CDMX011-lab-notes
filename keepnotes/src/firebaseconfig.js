@@ -11,6 +11,7 @@ const firebaseConfig = {
     appId: "1:563697277897:web:a0fb59315a72a5df19a618"
 };
 initializeApp(firebaseConfig);
+
 export const createAccount = (email, password) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
