@@ -1,12 +1,33 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './styles/Register.css'
 import logo from '../assets/logo.png'
 import imgRegister from '../assets/img-register.png'
 
-export const Register = ({ handleRegister }) => {
+import { useAuth } from '../context/AuthContext';
+
+const Register = () => {
+    const { register } = useAuth();
+    const [error, setError] = useState(null);
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+    const [confirmPass, setConfirmPass] = useState('')
+    let history = useHistory();
+
+    const handleRegister = async () => {
+        if (pass !== confirmPass) {
+            setError('Las contraseñas no coinciden');
+            setTimeout(() => setError(''), 1500);
+        } else {
+            try {
+                await register(email, pass)
+                console.log('ya me registre');
+                history.push("/notes");
+            } catch (error) {
+                console.log('chale, otra vez no sirve');
+            }
+        }
+    }
 
 
     return (
@@ -26,9 +47,11 @@ export const Register = ({ handleRegister }) => {
                 <h3>Password:</h3>
                 <input className="input-register" type="password" onChange={(e) => { setPass(e.target.value) }} />
                 <h3>Confirm Password:</h3>
-                <input className="input-register" type="password" />
-                <br />
-                <button className="btn-register" onClick={() => { handleRegister(email, pass) }}>Iniciar Sesion</button>
+                <input className="input-register" type="password" onChange={(e) => { setConfirmPass(e.target.value) }} />
+                {error && <p className='error'>{error}</p>}
+
+                {/*<br />*/}
+                <button className="btn-register" onClick={() => { handleRegister(email, pass, confirmPass) }}>Iniciar Sesion</button>
             </div>
         </div>
     )

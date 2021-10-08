@@ -1,12 +1,28 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import './styles/Login.css'
 import logo from '../assets/logo.png'
 import imgLogin from '../assets/img-login.png'
+import { useAuth } from '../context/AuthContext';
 
-const Login = ({ handleLogin }) => {
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
+ const Login = () => {
+    const { login } = useAuth();
+    const [error, setError] = useState(null);
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    let history = useHistory();
+
+    const handleLogin = async () => {
+        try {
+            await login(email, pass)
+            console.log('ya entre');
+            history.push("/notes");
+        } catch (error) {
+            setError('Error en tu inicio de sesión, intenta de nuevo');
+            setTimeout(() => setError(''), 2000);
+            //console.log('no sirve');
+        }
+    }
     return (
         <div className="container">
             <div className="header">
@@ -25,6 +41,8 @@ const Login = ({ handleLogin }) => {
                 <input className="input-login" type="password" onChange={(e) => { setPass(e.target.value) }} />
                 <h3>Confirm Password:</h3>
                 <input className="input-login" type="password" />
+                {error && <p className='error'>{error}</p>}
+
                 <br />
                 <button className="btn-login" onClick={() => { handleLogin(email, pass) }}>Iniciar Sesión</button>
             </div>
