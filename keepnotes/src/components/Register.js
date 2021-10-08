@@ -3,11 +3,12 @@ import { Link, useHistory } from "react-router-dom";
 import './styles/Register.css'
 import logo from '../assets/logo.png'
 import imgRegister from '../assets/img-register.png'
-
+import iconuser from '../assets/icon-user.png'
+import googleImg from '../assets/google.png'
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
-    const { register } = useAuth();
+    const { register, loginGoogle } = useAuth();
     const [error, setError] = useState(null);
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
@@ -28,12 +29,24 @@ const Register = () => {
             }
         }
     }
-
+    const handleGoogleRegister = async () => {
+        try {
+            await loginGoogle();
+            history.push('/notes')
+            console.log('google')
+        } catch (error) {
+            console.log('hay un error en google')
+            setError('Wrong credentials,try again.')
+            console.log(error);
+        }
+    };
 
     return (
         <div className="container">
             <div className="header">
-                <header><Link to='/'><img src={logo} alt="logo" className="logo" /></Link></header>
+                <header><Link to='/'><img src={logo} alt="logo" className="logo" /></Link>
+                    <Link to='/login'><img src={iconuser} alt="login" className="icon" /></Link>
+                </header>
             </div>
 
             <div className="title">
@@ -52,6 +65,7 @@ const Register = () => {
 
                 {/*<br />*/}
                 <button className="btn-register" onClick={() => { handleRegister(email, pass, confirmPass) }}>Iniciar Sesion</button>
+                <button className="btn-google" onClick={handleGoogleRegister}>Google<img src={googleImg} alt="googleImg" className="googleImg" /></button>
             </div>
         </div>
     )

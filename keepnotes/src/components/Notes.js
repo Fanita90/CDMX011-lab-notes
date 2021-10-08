@@ -2,13 +2,15 @@ import React from 'react';
 import { Link, useHistory } from "react-router-dom";
 import './styles/Notes.css'
 import logo from '../assets/logo.png'
+import exit from '../assets/icon-exit.png'
+import userNotes from '../assets/user-notes.png'
 import { useAuth } from '../context/AuthContext';
 import { auth } from '../firebaseconfig';
 
 
 
 function Notes(props) {
-    const { logout,currentUser } = useAuth();
+    const { logout, currentUser } = useAuth();
     let history = useHistory();
 
     const handleLogout = async () => {
@@ -27,12 +29,12 @@ function Notes(props) {
     return (
         <div className="conteiner">
             <div className="header">
-                <header><Link to='/'><img src={logo} alt="logo" className="logo" /></Link></header>
+                <header><Link to='/'><img src={logo} alt="logo" className="logo" /></Link>
+                    <img src={exit} alt="exit" className="icon" onClick={() => { handleLogout(auth) }} /></header>
             </div>
-            <p className="p-welcome">Bienvenido {currentUser.email}</p>
+            <p className="p-welcome"><img src={userNotes} alt="userNotes" className="welcomePhoto" />Bienvenido {currentUser.email}</p>
             <h1 className="h1-notes">Mis notas</h1>
             <button className="btn-note">Crear nota</button>
-            <button className="btn-note" onClick={() => { handleLogout(auth) }}>cerrar Sesion</button>
         </div>
     );
 }
