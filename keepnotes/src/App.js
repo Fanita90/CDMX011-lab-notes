@@ -1,47 +1,30 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import CreateNote from "./components/CreateNote";
-import EditNote from "./components/EditNote";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Notes from "./components/Notes";
-import Register from "./components/Register";
 
-
-
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
+import Register from './components/Register';
+import Notes from './components/Notes';
+import Home from './components/Home';
+import Login from './components/Login';
+import { AuthProvider } from './context/AuthContext';
+import { PrivateRoute } from './components/PrivateRoute';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Switch>
-        <Route path="/" exact>
-            <Home/>
-          </Route>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/notes">
-           <Notes/>
-          </Route>
-          <Route path="/create">
-            <CreateNote/>
-          </Route>
-          <Route path="/edit">
-            <EditNote/> 
-          </Route>
-          
-        </Switch>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div>
+          <Switch>
+            <Route path='/register' component={Register}></Route>
+            <Route path='/login' component={Login}></Route>
+            <PrivateRoute path='/notes' component={Notes} />
+            <Route exact path='/' component={Home}></Route>
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
+
+
   );
 }
 
