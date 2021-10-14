@@ -22,7 +22,7 @@ export const CreateNotes = ({ note }) => {
     const hideModal = () => setIsVisible(false);
 
     return (
-        <div className='todo'>
+        <div className='all-container'>
             <div className='note-print'>
                 <div className='note-body'>
                     <p className='parraf-title'>Título: {title}</p>

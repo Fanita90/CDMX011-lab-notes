@@ -12,7 +12,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        backgroundColor: 'white',
+        backgroundColor: '#59e7d9f1',
         border: '5px solid #4AE1D2',
         boxShadow: '5px 5px 10px black'
 
@@ -65,15 +65,15 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     return (
         <ReactModal isOpen={isOpen} style={customStyles} appElement={document.getElementById('root')}>
             <form className='modal' onSubmit={handleSubmit}>
-                <button className="close-btn" onClick={closeModal}> Cerrar </button>
-                <h4>Título</h4>
+                <button className="close-btn" onClick={closeModal}> X </button>
+                
                 <input type='text' className='input-modal' value={newTitle} placeholder='Título de tu nota' onChange={handleTitleChange} />
-                <h4>Nota</h4>
+                
                 <textarea type='text' className='text-modal' value={newDescription} placeholder='Escribe tu nota' onChange={handleDescriptionChange} />
                 {
                     mode === 'edit' ?
-                        <button type='submit' className='edit-btn'>Edita Nota</button> :
-                        <button type='submit' className='create-btn'>Listo</button>
+                        <button type='submit' className='edit-btn-modal'>Editar Nota</button> :
+                        <button type='submit' className='create-btn'>Crear</button>
                 }
             </form>
         </ReactModal>
