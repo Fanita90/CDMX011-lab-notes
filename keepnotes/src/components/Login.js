@@ -61,11 +61,11 @@ const Login = () => {
 
             <div className="form-login">
                 <h3>e-mail:</h3>
-                <input className="input-login" type="text" onChange={(e) => { setEmail(e.target.value) }} />
+                <input className="input-login" type="text" onChange={(e) => { setEmail(e.target.value) }} required />
                 <h3>Password:</h3>
-                <input className="input-login" type="password" onChange={(e) => { setPass(e.target.value) }} />
+                <input className="input-login" type="password" onChange={(e) => { setPass(e.target.value) }} required />
                 <h3>Confirm Password:</h3>
-                <input className="input-login" type="password" onChange={(e) => { setConfirmPass(e.target.value) }} />
+                <input className="input-login" type="password" onChange={(e) => { setConfirmPass(e.target.value) }} required />
                 {error && <p className='error'>{error}</p>}
 
                 <br />

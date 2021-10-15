@@ -4,14 +4,39 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { Modal } from './Modal';
 import './styles/CreateNotes.css';
 import iconDelete from '../assets/icon-delete.png';
-import iconEdit from '../assets/icon-edit.png'
+import iconEdit from '../assets/icon-edit.png';
+import Swal from 'sweetalert2';
 
 export const CreateNotes = ({ note }) => {
     const { id, title, description } = note;
-    const deleteNote = async () => {
+    const deleteNote = () => {
         try {
+            Swal.fire({
+                title: 'Borrar nota',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar borrar nota',
+                confirmButtonText: '¡Sí, bórralo!'
+            })
 
-            await deleteDoc(doc(db, 'post', id));
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        deleteDoc(doc(db, 'post', id));
+                        Swal.fire(
+                            'Borrado!',
+                            'Tu nota ha sido borrada.',
+                            'success'
+                        )
+
+                    }
+
+
+                })
+
+
         } catch (error) {
             console.error(error);
         }
