@@ -7,7 +7,8 @@ import userNotes from '../assets/user-notes.png'
 import { useAuth } from '../context/AuthContext';
 import { auth, db } from '../firebaseconfig';
 import { CreateNotes } from './CreateNotes';
-import { collection, query, onSnapshot } from '@firebase/firestore';
+import { collection, query, onSnapshot, orderBy, where } from '@firebase/firestore';
+import { onAuthStateChanged } from "firebase/auth";
 import { Modal } from './Modal';
 
 
@@ -29,14 +30,24 @@ function Notes() {
 
     const [post, setPost] = useState([]);
     useEffect(() => {
-        const q = query(collection(db, 'post'));
-        onSnapshot(q, (querySnapshot) => {
-            const documents = [];
-            querySnapshot.forEach((doc) => {
-                documents.push({ id: doc.id, ...doc.data() })
-            });
-            setPost(documents);
-        })
+        const renderNote = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const q = query(collection(db, 'post'), orderBy("date", "desc"), where("email", "==", user.email));
+                onSnapshot(q, (querySnapshot) => {
+                    const documents = [];
+                    querySnapshot.forEach((doc) => {
+                        documents.push({ id: doc.id, ...doc.data() })
+                    });
+                    setPost(documents);
+                });
+
+
+            } else {
+                console.log('no estoy logueado');
+            }
+        });
+        return renderNote;
+
     }, []);
 
     const [isVisible, setIsVisible] = useState(false);

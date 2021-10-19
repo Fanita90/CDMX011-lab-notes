@@ -52,10 +52,9 @@ export const CreateNotes = ({ note }) => {
                 <div className='note-body'>
                     <p className='parraf-title'>Título: {title}</p>
                     <p className={'parraf-description'} >Nota: {description}</p>
+
                 </div>
                 <div className='note-btns'>
-                    {/*<button className='edit-btn btn-notes' onClick={showModal}>Editar</button>
-                <button className='delete-btn btn-notes' onClick={deleteNote}>Borrar</button>*/}
                     <img src={iconEdit} alt="edit" className=" edit-btn" onClick={showModal} />
                     <img src={iconDelete} alt="delete" className=" delete-btn" onClick={deleteNote} />
                 </div>

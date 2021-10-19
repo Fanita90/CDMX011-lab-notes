@@ -3,6 +3,8 @@ import ReactModal from 'react-modal';
 import { db } from '../firebaseconfig';
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import './styles/Modal.css'
+import { useAuth } from '../context/AuthContext';
+
 
 const customStyles = {
     content: {
@@ -23,6 +25,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     const [newTitle, setNewTitle] = useState(title);
     const [newDescription, setNewDescription] = useState(description);
     const [isOpen, setIsOpen] = useState(isVisible);
+    const { currentUser } = useAuth();
 
     const closeModal = () => {
         setIsOpen(false);
@@ -41,10 +44,13 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     const handleDescriptionChange = (e) => setNewDescription(e.target.value);
 
     const createNotes = async () => {
+        const user = currentUser;
         try {
             await addDoc(collection(db, "post"), {
                 title: newTitle,
-                description: newDescription
+                description: newDescription,
+                email: user.email,
+                date: new Date()
             })
 
         } catch (error) {
@@ -52,10 +58,13 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         }
     }
     const editNotes = async () => {
+        const user = currentUser;
         try {
             await setDoc(doc(db, "post", id), {
                 title: newTitle,
-                description: newDescription
+                description: newDescription,
+                email: user.email,
+                date: new Date()
             });
         } catch (error) {
             console.error(error);
@@ -66,9 +75,9 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         <ReactModal isOpen={isOpen} style={customStyles} appElement={document.getElementById('root')}>
             <form className='modal' onSubmit={handleSubmit}>
                 <button className="close-btn" onClick={closeModal}> X </button>
-                
+
                 <input type='text' className='input-modal' value={newTitle} placeholder='Título de tu nota' onChange={handleTitleChange} />
-                
+
                 <textarea type='text' className='text-modal' value={newDescription} placeholder='Escribe tu nota' onChange={handleDescriptionChange} />
                 {
                     mode === 'edit' ?
