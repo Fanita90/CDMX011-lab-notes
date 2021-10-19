@@ -8,7 +8,7 @@ import iconEdit from '../assets/icon-edit.png';
 import Swal from 'sweetalert2';
 
 export const CreateNotes = ({ note }) => {
-    const { id, title, description } = note;
+    const { id, title, description, date } = note;
     const deleteNote = () => {
         try {
             Swal.fire({
@@ -52,9 +52,9 @@ export const CreateNotes = ({ note }) => {
                 <div className='note-body'>
                     <p className='parraf-title'>Título: {title}</p>
                     <p className={'parraf-description'} >Nota: {description}</p>
-
                 </div>
                 <div className='note-btns'>
+                    <p className={'date'} >{date}</p>
                     <img src={iconEdit} alt="edit" className=" edit-btn" onClick={showModal} />
                     <img src={iconDelete} alt="delete" className=" delete-btn" onClick={deleteNote} />
                 </div>
