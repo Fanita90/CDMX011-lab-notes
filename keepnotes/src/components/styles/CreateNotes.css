@@ -45,8 +45,13 @@
 .note-btns{
     display:flex ;
     flex-direction:row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 0;
+
+}
+.date{
+    font-size: 3.5vw;
+    color:#7E49F2;
 }
 .edit-btn{
     width: 5vw;
