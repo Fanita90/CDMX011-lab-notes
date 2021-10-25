@@ -52,6 +52,8 @@
 .date{
     font-size: 3.5vw;
     color:#7E49F2;
+    margin-top: 2vmin;
+    margin-bottom: 0;
 }
 .edit-btn{
     width: 5vw;

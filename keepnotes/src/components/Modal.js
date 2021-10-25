@@ -4,6 +4,8 @@ import { db } from '../firebaseconfig';
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import './styles/Modal.css'
 import { useAuth } from '../context/AuthContext';
+import Swal from 'sweetalert2';
+import 'animate.css';
 
 
 const customStyles = {
@@ -46,12 +48,24 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     const createNotes = async () => {
         const user = currentUser;
         try {
-            await addDoc(collection(db, "post"), {
-                title: newTitle,
-                description: newDescription,
-                email: user.email,
-                date: new Date().toLocaleDateString('es-MX', { year: 'numeric', month: '2-digit', day: '2-digit' })
-            })
+            if (newTitle === '' || newDescription === '') {
+                Swal.fire({
+                    title: 'Rellena todos los campos',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+            } else {
+                await addDoc(collection(db, "post"), {
+                    title: newTitle,
+                    description: newDescription,
+                    email: user.email,
+                    date: new Date().toLocaleDateString('es-MX', { year: 'numeric', month: '2-digit', day: '2-digit' })
+                })
+            }
 
         } catch (error) {
             console.error(error);
@@ -64,7 +78,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
                 title: newTitle,
                 description: newDescription,
                 email: user.email,
-                date: new Date().toDateString()
+                date: new Date().toLocaleDateString('es-MX', { year: 'numeric', month: '2-digit', day: '2-digit' })
             });
         } catch (error) {
             console.error(error);

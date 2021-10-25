@@ -10,20 +10,34 @@ import { CreateNotes } from './CreateNotes';
 import { collection, query, onSnapshot, orderBy, where } from '@firebase/firestore';
 import { onAuthStateChanged } from "firebase/auth";
 import { Modal } from './Modal';
+import Swal from 'sweetalert2';
 
 
 function Notes() {
     const { logout, currentUser } = useAuth();
     let history = useHistory();
-    const handleLogout = async () => {
+    const handleLogout = () => {
         try {
-            await logout()
-            console.log('arios');
-            history.push("/");
-
+            Swal.fire({
+                title: '¿Quieres cerrar sesión?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No salir',
+                confirmButtonText: 'Cerrar sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    logout()
+                    history.push("/");
+                    Swal.fire(
+                        '¡Adios!',
+                        'Tu sesión ha sido cerrada.',
+                        'success'
+                    )
+                }
+            })
         } catch (error) {
-            //setError('Lo que sea');
-            //setTimeout(() => setError(''), 1500);
             console.log('chale, otra vez no sirve');
         }
     }

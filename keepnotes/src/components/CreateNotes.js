@@ -8,6 +8,7 @@ import iconEdit from '../assets/icon-edit.png';
 import Swal from 'sweetalert2';
 
 export const CreateNotes = ({ note }) => {
+
     const { id, title, description, date } = note;
     const deleteNote = () => {
         try {
