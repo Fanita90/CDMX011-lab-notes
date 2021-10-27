@@ -63,3 +63,33 @@
     width: 5vw;
     margin-top: 2vmin;
 }
+@media only screen and (min-width: 1366px) {
+    .note-print{
+        width: 30vmin;
+        height: 30vmin;
+    }
+    .note-body{
+        font-size: 1.2vw;
+    }
+    .parraf-title{
+        height: 4vmin;
+    }
+    .parraf-title{
+        height: 4vmin;
+    }
+    .parraf-description{
+        height: 15vmin;
+    }
+    .date{
+        font-size: 1vw;
+       
+    }
+    .edit-btn{
+        width: 1.5vw;
+        margin-top: 2vmin;
+    }
+    .delete-btn{
+        width: 1.5vw;
+        margin-top: 2vmin;
+    }
+}
