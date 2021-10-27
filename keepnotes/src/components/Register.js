@@ -4,18 +4,16 @@ import './styles/Register.css'
 import logo from '../assets/logo.png'
 import imgRegister from '../assets/img-register.png'
 import iconuser from '../assets/icon-user.png'
-import googleImg from '../assets/google.png'
 import { useAuth } from '../context/AuthContext';
+import { FormRegister } from './FormRegister';
 
 const Register = () => {
     const { register, loginGoogle } = useAuth();
     const [error, setError] = useState(null);
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
-    const [confirmPass, setConfirmPass] = useState('')
+
     let history = useHistory();
 
-    const handleRegister = async () => {
+    const handleRegister = async (email, pass, confirmPass) => {
         if (pass !== confirmPass) {
             setError('Las contraseñas no coinciden');
             setTimeout(() => setError(''), 1500);
@@ -25,7 +23,8 @@ const Register = () => {
                 console.log('ya me registre');
                 history.push("/notes");
             } catch (error) {
-                console.log('chale, otra vez no sirve');
+                setError('Correo incorrecto');
+                setTimeout(() => setError(''), 1500);
             }
         }
     }
@@ -53,20 +52,8 @@ const Register = () => {
                 <img src={imgRegister} alt="imgRegister" className="imgRegister" />
                 <h1 className="h1-register">Registra tus datos</h1>
             </div>
-
-            <div className="form-register">
-                <h3>e-mail:</h3>
-                <input className="input-register" type="text" onChange={(e) => { setEmail(e.target.value) }} />
-                <h3>Password:</h3>
-                <input className="input-register" type="password" onChange={(e) => { setPass(e.target.value) }} />
-                <h3>Confirm Password:</h3>
-                <input className="input-register" type="password" onChange={(e) => { setConfirmPass(e.target.value) }} />
-                {error && <p className='error'>{error}</p>}
-
-                {/*<br />*/}
-                <button className="btn-register" onClick={() => { handleRegister(email, pass, confirmPass) }}>Iniciar Sesion</button>
-                <button className="btn-google" onClick={handleGoogleRegister}>Google<img src={googleImg} alt="googleImg" className="googleImg" /></button>
-            </div>
+            <FormRegister handleRegister={handleRegister} handleGoogleRegister={handleGoogleRegister} />
+            <div>{error && <p className='error'>{error}</p>}</div>
         </div>
     )
 }

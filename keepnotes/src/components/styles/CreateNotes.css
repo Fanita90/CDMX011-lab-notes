@@ -52,6 +52,8 @@
 .date{
     font-size: 3.5vw;
     color:#7E49F2;
+    margin-top: 2vmin;
+    margin-bottom: 0;
 }
 .edit-btn{
     width: 5vw;
@@ -60,4 +62,34 @@
 .delete-btn{
     width: 5vw;
     margin-top: 2vmin;
+}
+@media only screen and (min-width: 1366px) {
+    .note-print{
+        width: 30vmin;
+        height: 30vmin;
+    }
+    .note-body{
+        font-size: 1.2vw;
+    }
+    .parraf-title{
+        height: 4vmin;
+    }
+    .parraf-title{
+        height: 4vmin;
+    }
+    .parraf-description{
+        height: 15vmin;
+    }
+    .date{
+        font-size: 1vw;
+       
+    }
+    .edit-btn{
+        width: 1.5vw;
+        margin-top: 2vmin;
+    }
+    .delete-btn{
+        width: 1.5vw;
+        margin-top: 2vmin;
+    }
 }
